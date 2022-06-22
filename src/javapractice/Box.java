@@ -30,6 +30,5 @@ public class Box {
 		b.fill('%');
 		a.draw();
 		b.draw();
-		
 	}
 }
