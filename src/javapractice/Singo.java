@@ -1,23 +1,22 @@
-//https://programmers.co.kr/learn/courses/30/lessons/92334
-
 package javapractice;
 import java.util.*;
 
 public class Singo {
+	
 	public static int[] solution(String[] id_list, String[] report, int k) {
 		int [] answer = {};
 		
-		HashMap<String,HashSet<String>> id별신고건 = new HashMap<String,HashSet<String>>();
-		HashSet<String> 임시;
+		HashMap<String, HashSet<String>> id별신고자 = new HashMap<String, HashSet<String>>();
 		
-		//id별 신고건을 저장
-		for(int i=0; i<id_list.length; i++) {
-			임시 = id별신고건.get(id_list[i]);
-			id별신고건.put(id_list[i],임시);
+		for(String item : id_list) { //id_list의 item이 피신고자(HashMap의 Key)
+			for(int i=0; i<report.length; i++) {
+				HashSet<String> 신고자명단임시 = new HashSet<String>();
+				String 신고자 = report[i].split("\\s")[0];
+				String 피신고자 = report[i].split("\\s")[1];
+				if(!(신고자명단임시.contains(신고자)) && 피신고자.equals(item) ) 신고자명단임시.add(신고자);
+			}
 		}
-		
 		return answer;
-		
 	}
 	
 	public static void main(String[] args) {
