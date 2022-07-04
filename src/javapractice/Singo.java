@@ -2,20 +2,36 @@ package javapractice;
 import java.util.*;
 
 public class Singo {
-	
 	public static int[] solution(String[] id_list, String[] report, int k) {
-		int [] answer = {};
+		int [] answer = new int[id_list.length];
+		Arrays.fill(answer, 0);
 		
 		HashMap<String, HashSet<String>> id별신고자 = new HashMap<String, HashSet<String>>();
 		
-		for(String item : id_list) { //id_list의 item이 피신고자(HashMap의 Key)
-			for(int i=0; i<report.length; i++) {
-				HashSet<String> 신고자명단임시 = new HashSet<String>();
-				String 신고자 = report[i].split("\\s")[0];
-				String 피신고자 = report[i].split("\\s")[1];
-				if(!(신고자명단임시.contains(신고자)) && 피신고자.equals(item) ) 신고자명단임시.add(신고자);
+		//id_list 값을 키로 추가
+		for(String item : id_list) 	id별신고자.put(item, new HashSet<String>());
+		
+		//피신고자 당 신고자를 중복되지 않게 등록
+		for(int i=0; i<id_list.length; i++) {
+			for(int j=0; j<report.length; j++) {
+				String 피신고자임시 = report[j].split("\\s")[1];
+				String 신고자임시 = report[j].split("\\s")[0];
+				
+				if(!(id별신고자.get(신고자임시).contains(피신고자임시)) && id_list[i].equals(피신고자임시)) {
+					id별신고자.get(피신고자임시).add(신고자임시);
+				}
 			}
 		}
+		
+		//id별 메일 받을 건수 저장
+		for(String item : id_list) {
+			for(int j=0; j<id_list.length; j++) {
+				if(id별신고자.get(item).size()>=k) { //피신고자의 신고건수가 k이상이면 갯수 세기
+					answer[j] += Collections.frequency(id별신고자.get(item), id_list[j]);
+				}
+			}
+		}
+		
 		return answer;
 	}
 	
