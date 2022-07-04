@@ -22,7 +22,7 @@ public class Singo {
 				}
 			}
 		}
-		
+		//
 		//id별 메일 받을 건수 저장
 		for(String item : id_list) {
 			for(int j=0; j<id_list.length; j++) {
