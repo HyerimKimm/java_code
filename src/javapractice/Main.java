@@ -10,7 +10,6 @@ class Main {
         for(int i=0; i<array.length; i++){
             if(array[i]==n) cnt++;
         }
-        
         return cnt;
     }
 	
